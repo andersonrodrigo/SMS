@@ -10,19 +10,23 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.AgrupadoPorLoja;
+import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.SmsAdapter;
+import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.TodasVendaDetalhadas;
+import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.VendaDetalhada;
 import com.example.andersonsilva.smsapp.entity.Sms;
 
 import java.util.ArrayList;
 
-public class TotalActivity extends AppCompatActivity {
+public class VendasGeraisActivity extends AppCompatActivity {
+
     ListView listView = null;
-    ArrayList<Sms> listAgrupadaNomeLoja = null;
     ArrayList<Sms> listaSms = null;
-    private static AgrupadoPorLoja adapter;
+    private static TodasVendaDetalhadas adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total);
+        setContentView(R.layout.activity_vendas_gerais);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -36,10 +40,9 @@ public class TotalActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         listaSms = SmsUtils.getAllSms(getContentResolver());
-        listView = (ListView) findViewById(R.id.listAgrupadaPorLoja);
-        listAgrupadaNomeLoja = SmsUtils.agrupaPorNomeLoja(listaSms);
-        SmsUtils.ordenaListaValorDecrecente(listAgrupadaNomeLoja);
-        adapter= new AgrupadoPorLoja(listAgrupadaNomeLoja,getApplicationContext());
+        listView = (ListView) findViewById(R.id.listVendasGerais);
+        SmsUtils.ordenaListaValorData(listaSms,-1);
+        adapter= new TodasVendaDetalhadas(listaSms,getApplicationContext());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,5 +54,4 @@ public class TotalActivity extends AppCompatActivity {
             }
         });
     }
-
 }

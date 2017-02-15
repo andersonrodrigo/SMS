@@ -43,6 +43,10 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration useDefault="false">C:\Program Files\TortoiseSVN</configuration>
+    <option name="sshExecutablePath" value="c:\Program" />
+  </component>
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">

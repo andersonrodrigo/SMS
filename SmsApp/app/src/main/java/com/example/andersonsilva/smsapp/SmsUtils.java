@@ -101,7 +101,12 @@ public class SmsUtils  {
     }
 
 
-    public static void ordenaListaValorData(List<Sms> lista){
+    /**
+     *
+     * @param lista
+     * @param ordem
+     */
+    public static void ordenaListaValorData(List<Sms> lista,final int ordem){
         Collections.sort(lista,(new Comparator<Sms>() {
             @Override
             public int compare(Sms sms, Sms t1) {
@@ -110,7 +115,7 @@ public class SmsUtils  {
                 try{
                     data1 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(sms.getDataCompra());
                     data2 = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(t1.getDataCompra());
-                    return data1.compareTo(data2);
+                    return data1.compareTo(data2) * ordem;
                 }catch (Exception e){
                     return 0;
                 }
@@ -249,6 +254,9 @@ public class SmsUtils  {
         ArrayList<Sms> msgs = getAllSms(cr);
         Date objDataReferencia = null;
         try{
+            if (dataReferencia.length() == 7){
+                dataReferencia = "01/"+dataReferencia;
+            }
             objDataReferencia = new SimpleDateFormat("dd/MM/yyyy").parse(dataReferencia);
             return filtraMsgPorMes(msgs,objDataReferencia);
         }catch (Exception e){

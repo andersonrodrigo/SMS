@@ -13,26 +13,53 @@
         android:text="De: 15/11/2016 18:24 - a - 13/02/2016 12:27"
         android:layout_marginRight="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
+
+    <TextView
+        android:id="@+id/tituloLojaAgrupado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dataCompra"
+        android:layout_marginRight="12dp"
+        android:text="Loja da Compra:"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/loja"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dataCompra"
-        android:layout_marginRight="25dp"
-        android:text="Loja da Compra"
-        android:textColor="@android:color/black" />
+        android:layout_toRightOf="@+id/tituloLojaAgrupado"
+        android:layout_marginTop="20dp"
+        android:text="Nome Loja"
+        android:textColor="@android:color/black"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
+
+    <TextView
+        android:id="@+id/tituloValorCompraAgrupado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loja"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="8dp"
+        android:text="Valor Compra:"
+
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/valor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loja"
+        android:layout_toRightOf="@+id/tituloValorCompraAgrupado"
         android:layout_marginRight="25dp"
-        android:text="Valor Compra"
+        android:text="R$ 10,00"
+        android:layout_marginTop="42dp"
         android:textColor="@android:color/black" />
 
     <LinearLayout

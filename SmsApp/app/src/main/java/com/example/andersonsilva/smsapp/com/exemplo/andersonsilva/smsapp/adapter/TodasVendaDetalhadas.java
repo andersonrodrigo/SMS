@@ -12,18 +12,16 @@ import android.widget.TextView;
 import com.example.andersonsilva.smsapp.R;
 import com.example.andersonsilva.smsapp.entity.Sms;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Created by anderson.silva on 14/02/2017.
  */
-public class AgrupadoPorLoja extends ArrayAdapter<Sms> implements View.OnClickListener{
+public class TodasVendaDetalhadas extends ArrayAdapter<Sms> implements View.OnClickListener{
 
         private ArrayList<Sms> dataSet;
         Context mContext;
-    static NumberFormat formato2 = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
 
 
     // View lookup cache
@@ -41,8 +39,8 @@ public class AgrupadoPorLoja extends ArrayAdapter<Sms> implements View.OnClickLi
      * @param context
 
      */
-        public AgrupadoPorLoja(ArrayList<Sms> data, Context context) {
-            super(context, R.layout.agrupado_loja, data);
+        public TodasVendaDetalhadas(ArrayList<Sms> data, Context context) {
+            super(context, R.layout.item_sms_detalhado, data);
             this.dataSet = data;
             this.mContext=context;
 
@@ -79,7 +77,7 @@ public class AgrupadoPorLoja extends ArrayAdapter<Sms> implements View.OnClickLi
 
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.agrupado_loja, parent, false);
+                convertView = inflater.inflate(R.layout.item_sms_detalhado, parent, false);
                 viewHolder.txtDataCompra = (TextView) convertView.findViewById(R.id.dataCompra);
                 viewHolder.txtValor = (TextView) convertView.findViewById(R.id.valor);
                 viewHolder.txtLoja = (TextView) convertView.findViewById(R.id.loja);
@@ -96,7 +94,7 @@ public class AgrupadoPorLoja extends ArrayAdapter<Sms> implements View.OnClickLi
 
             viewHolder.txtLoja.setText(dataModel.getLoja());
             viewHolder.txtDataCompra.setText(dataModel.getDataCompra());
-            viewHolder.txtValor.setText(formato2.format(Double.valueOf(dataModel.getValor())));
+            viewHolder.txtValor.setText(dataModel.getValor());
             //viewHolder.info.setOnClickListener(this);
            // viewHolder.info.setTag(position);
             // Return the completed view to render on screen

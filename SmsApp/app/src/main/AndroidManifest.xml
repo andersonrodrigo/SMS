@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TotalActivity" />
-        <activity android:name=".ActivityMensal"></activity>
+        <activity android:name=".ActivityMensal" />
+        <activity android:name=".VendasGeraisActivity"></activity>
     </application>
 
 </manifest>

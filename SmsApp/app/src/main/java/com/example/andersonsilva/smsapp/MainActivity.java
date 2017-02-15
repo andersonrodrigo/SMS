@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(), TotalActivity.class);
             startActivity(i);
        } else if (id == R.id.todasDetalhadasPorData) {
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            Intent i = new Intent(getApplicationContext(), VendasGeraisActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_share) {
 

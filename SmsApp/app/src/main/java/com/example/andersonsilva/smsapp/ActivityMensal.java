@@ -36,7 +36,7 @@ public class ActivityMensal extends AppCompatActivity {
             listView = (ListView) findViewById(R.id.listMensalAgrupado);
             listaSms = SmsUtils.getVendasAcumuladasMes(getContentResolver(),dataReferencia);
             adapter= new VendaDetalhada(listaSms,getApplicationContext());
-            SmsUtils.ordenaListaValorData(listaSms);
+            SmsUtils.ordenaListaValorData(listaSms,1);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
