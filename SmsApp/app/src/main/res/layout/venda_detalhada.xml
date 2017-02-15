@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+
+    <TextView
+       android:id="@+id/tituloLoja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:text="Loja da Compra:"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/loja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tituloLoja"
+        android:layout_marginRight="5dp"
+        android:text="Lojas do Ands"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tituloDataCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Data da Compra:"
+        android:layout_below="@+id/loja"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="25dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/dataCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tituloDataCompra"
+        android:text="15/11/2016 18:24"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tituloValorCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dataCompra"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="10dp"
+        android:text="Valor da Compra:"
+        android:textColor="@android:color/black" />
+
+
+
+    <TextView
+        android:id="@+id/valor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tituloValorCompra"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="51dp"
+        android:text="R$:110,00"
+        android:textColor="@android:color/black" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/mensagemCompleta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MSG"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
