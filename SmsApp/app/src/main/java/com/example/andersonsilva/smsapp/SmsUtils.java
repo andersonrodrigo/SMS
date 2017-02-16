@@ -16,6 +16,7 @@ import com.example.andersonsilva.smsapp.entity.Sms;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -299,14 +300,17 @@ public class SmsUtils  {
         try {
             ArrayList<Sms> listaSms = new ArrayList<Sms>();
             Uri message = Uri.parse("content://sms/");
-            Cursor c = cr.query(message, null, null, null, null);
+            String[] reqCols = new String[] { "_id", "address", "body","date" };
+            Cursor c = cr.query(message, reqCols, null, null, null);
             //  startManagingCursor(c);
             int totalSMS = c.getCount();
             if (c.moveToFirst()) {
                 for (int i = 0; i < totalSMS; i++) {
                     Sms objSms = new Sms();
                     objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
+
                     if (objSms.getMsg() != null) {
+
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
                             try {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()));
@@ -318,19 +322,48 @@ public class SmsUtils  {
                             }
 
                         } else if (objSms.getMsg().indexOf("ITAU DEBITO") > -1) {
-                            /** ITAU DEBITO: Cartao final 3896 COMPRA APROVADA 11/02 20:25:37 R$ 10,00 Local: DEL REY. */
+                            /** ITAU DEBITO: Cartao final 3896 COMPRA APROVADA 11/02 20:25:37 R$ 10,00 Local: DEL REY. Consulte tambem pelo celular www.itau.com.br.*/
+                            //objSms.setMsg("ITAU DEBITO: Cartao final 3896 COMPRA APROVADA 11/02 20:25:37 R$ 10,00 Local: DEL REY. Consulte tambem pelo celular www.itau.com.br.");
+                            String data = c.getString(c.getColumnIndexOrThrow("date"));
+                            Calendar d = Calendar.getInstance();
+                            d.setTimeInMillis(Long.valueOf(data));
                             try {
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local:") + 6, objSms.getMsg().length()));
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("APROVADA ") + 9, objSms.getMsg().indexOf("APROVADA ") + 9 + 14));
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf("Local:")));
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local:") + 6, objSms.getMsg().indexOf(" Consulte ")));
+                                objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
+                                objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf("Local:")));
                                 listaSms.add(objSms);
+                            } catch (Exception e) {
+
+                            }
+                        }else  if (objSms.getMsg().indexOf("Santander Informa") > -1) {
+                            //objSms.setMsg("{BETEL}Santander Informa: Transacao Cartao VISA final 4249 de R$ 5,00 aprovada em 14/12/16 as 21:21 SHOP CONTAGEM");
+                            try {
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3 + 17, objSms.getMsg().length()));
+                                objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3, objSms.getMsg().indexOf("em ") + 3 + 17)).replace("as ",""));
+                                objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" de R$ ") + 7, objSms.getMsg().indexOf("aprovada ")));
+                                listaSms.add(objSms);
+                            } catch (Exception e) {
+
+                            }
+
+                        }else if (objSms.getMsg().indexOf("Seguranca Santander: Pagamento")> -1 ){
+                         //   objSms.setMsg("Seguranca Santander: Pagamento R$ 1762,53 em conta corrente 07/02/17 10:04");
+                            try {
+                              //  objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3, objSms.getMsg().length()));
+                                objSms.setLoja("Pagamento Conta Corrente");
+                                objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("corrente ") + 9, objSms.getMsg().indexOf("corrente ") + 9 + 14)));
+                                objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("R$ ") + 3, objSms.getMsg().indexOf(" em ")));
+                                listaSms.add(objSms);
+
                             } catch (Exception e) {
 
                             }
                         }
                     }
                     c.moveToNext();
+
                 }
+
             }
             c.close();
             return listaSms;
