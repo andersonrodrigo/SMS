@@ -1,6 +1,7 @@
 package com.example.andersonsilva.smsapp;
 
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import com.example.andersonsilva.smsapp.entity.Sms;
 import java.util.ArrayList;
 
 public class TotalActivity extends AppCompatActivity {
+
     ListView listView = null;
     ArrayList<Sms> listAgrupadaNomeLoja = null;
     ArrayList<Sms> listaSms = null;
@@ -25,6 +27,7 @@ public class TotalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_total);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Compras Agrupadas Loja");
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

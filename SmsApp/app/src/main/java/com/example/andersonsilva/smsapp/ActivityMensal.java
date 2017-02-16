@@ -29,6 +29,7 @@ public class ActivityMensal extends AppCompatActivity {
         Intent intent = getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Compras Do Mês");
         Bundle params = intent.getExtras();
 
         if(params!=null) {

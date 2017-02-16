@@ -29,6 +29,7 @@ public class VendasGeraisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vendas_gerais);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Compras Detalhadas");
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
