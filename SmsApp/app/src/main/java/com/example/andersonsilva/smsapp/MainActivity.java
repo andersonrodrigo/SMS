@@ -68,7 +68,11 @@ public class MainActivity extends AppCompatActivity
                     // contacts-related task you need to do.
 
                 } else {
+                    Toast.makeText(MainActivity.this, R.string.ERRO_PERMISSAO, Toast.LENGTH_LONG).show();
+                    TextView valorTotal = (TextView) findViewById(R.id.tituloTotalGasto);
+                    valorTotal.setText("Não consegui Ler seus SMSs, reintale novamente e me de permissão por favor.. :)");
 
+                 //   Toast.makeText(MainActivity.class, "Não posso ler seus SMSs.. :(", Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         if (!checkIfAlreadyhavePermission()){
+
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_SMS)) {
 
