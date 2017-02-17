@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/dataCompra"
         android:layout_marginRight="25dp"
-        android:text="Loja da Compra"
+        android:text="Loja"
         android:textColor="@android:color/black" />
 
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/loja"
 
-        android:text="Valor Compra"
+        android:text="Valor"
         android:textColor="@android:color/black" />
 
     <LinearLayout

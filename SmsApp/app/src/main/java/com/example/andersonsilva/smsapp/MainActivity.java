@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<Sms> listaSms = null;
     ArrayList<Sms> listaUtilizada = null;
     private static SmsAdapter adapter;
-
+    static int  REQUEST_CODE_A = 10;
 
     private boolean checkIfAlreadyhavePermission() {
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case R.string.mensagemPermissaoSMS: {
+            case 10: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{ Manifest.permission.READ_SMS},
-                        R.string.mensagemPermissaoSMS);
+                        REQUEST_CODE_A);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
