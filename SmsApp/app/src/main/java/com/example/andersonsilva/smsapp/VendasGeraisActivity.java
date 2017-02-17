@@ -43,8 +43,10 @@ public class VendasGeraisActivity extends AppCompatActivity {
         listaSms = SmsUtils.getAllSms(getContentResolver());
         listView = (ListView) findViewById(R.id.listVendasGerais);
         SmsUtils.ordenaListaValorData(listaSms,-1);
+        View header = getLayoutInflater().inflate(R.layout.header_vendas_gerais, null);
         adapter= new TodasVendaDetalhadas(listaSms,getApplicationContext());
         listView.setAdapter(adapter);
+        listView.addHeaderView(header);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -54,5 +56,12 @@ public class VendasGeraisActivity extends AppCompatActivity {
                         .setAction("Mensagem completa", null).show();
             }
         });
+
+
+        /**
+         * ViewGroup header = (ViewGroup)inflater.inflate(R.layout.header, myListView, false);
+         myListView.addHeaderView(header, null, false);
+         */
+
     }
 }

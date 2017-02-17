@@ -19,42 +19,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/textData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-android:layout_marginLeft="10dp"
-        android:layout_marginRight="80dp"
-        android:text="Data"
-        android:layout_marginTop="42dp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textLoja"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/textData"
-        android:layout_marginRight="150dp"
-        android:text="Loja"
-        android:layout_marginTop="42dp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textValor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/textLoja"
-        android:layout_marginRight="270dp"
-        android:text="Valor"
-        android:layout_marginTop="42dp"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/listVendasGerais"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@+id/textValor">
+        >
     </ListView>
 </RelativeLayout>

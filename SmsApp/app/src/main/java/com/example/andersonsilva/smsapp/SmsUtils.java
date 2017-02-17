@@ -313,7 +313,7 @@ public class SmsUtils  {
 
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
                             try {
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()));
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
                                 objSms.setDataCompra(objSms.getMsg().substring(objSms.getMsg().indexOf("EM ") + 3, objSms.getMsg().indexOf("EM ") + 3 + 16));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("VALOR DE $ ") + 11, objSms.getMsg().indexOf("NO(A)")));
                                 listaSms.add(objSms);
@@ -328,7 +328,7 @@ public class SmsUtils  {
                             Calendar d = Calendar.getInstance();
                             d.setTimeInMillis(Long.valueOf(data));
                             try {
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local:") + 6, objSms.getMsg().indexOf(" Consulte ")));
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local:") + 6, objSms.getMsg().indexOf(" Consulte ")).trim());
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf("Local:")));
                                 listaSms.add(objSms);
@@ -338,7 +338,7 @@ public class SmsUtils  {
                         }else  if (objSms.getMsg().indexOf("Santander Informa") > -1) {
                             //objSms.setMsg("{BETEL}Santander Informa: Transacao Cartao VISA final 4249 de R$ 5,00 aprovada em 14/12/16 as 21:21 SHOP CONTAGEM");
                             try {
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3 + 17, objSms.getMsg().length()));
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3 + 17, objSms.getMsg().length()).trim());
                                 objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3, objSms.getMsg().indexOf("em ") + 3 + 17)).replace("as ",""));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" de R$ ") + 7, objSms.getMsg().indexOf("aprovada ")));
                                 listaSms.add(objSms);
