@@ -308,9 +308,9 @@ public class SmsUtils  {
                 for (int i = 0; i < totalSMS; i++) {
                     Sms objSms = new Sms();
                     objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
-
+                    objSms.setMsg("CAIXA informa: Saque com cartao de debito, 1.000,00, conta 94-8, 11/02/2017 as 14:43, ATM. Duvidas: 3004-1104 / 0800-726-0104");
                     if (objSms.getMsg() != null) {
-
+                        objSms.setMsg("CAIXA informa: Saque com cartao de debito, 1.000,00, conta 94-8, 11/02/2017 as 14:43, ATM. Duvidas: 3004-1104 / 0800-726-0104");
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
                             try {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
@@ -358,7 +358,39 @@ public class SmsUtils  {
                             } catch (Exception e) {
 
                             }
+
+                        } else  if (objSms.getMsg().indexOf("ITAU UNICLASS") > -1) {
+                          // objSms.setMsg("ITAU UNICLASS: Cartao final 9976 COMPRA APROVADA 17/02 13:32:22 R$ 39,50 Local: ARTES BAR. Consulte tambem pelo celular www.itau.com.br.");
+                            try {
+                                String data = c.getString(c.getColumnIndexOrThrow("date"));
+                                Calendar d = Calendar.getInstance();
+                                d.setTimeInMillis(Long.valueOf(data));
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local: ") + 7, objSms.getMsg().indexOf("Consulte")).trim());
+                                objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
+                                objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf(" Local")));
+                                listaSms.add(objSms);
+                            } catch (Exception e) {
+
+                            }
+
+                        }else  if (objSms.getMsg().indexOf("CAIXA informa: Saque com cartao de debito") > -1) {
+                            //objSms.setMsg("CAIXA informa: Saque com cartao de debito, 1.000,00, conta 94-8, 11/02/2017 as 14:43, ATM. Duvidas: 3004-1104 / 0800-726-0104");
+                            try {
+                                String data = c.getString(c.getColumnIndexOrThrow("date"));
+                                Calendar d = Calendar.getInstance();
+                                d.setTimeInMillis(Long.valueOf(data));
+                                objSms.setLoja("Saque com cartao de debito");
+                                objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
+                                objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("debito, ") + 8, objSms.getMsg().indexOf(" conta")-1).replace(".",""));
+                                listaSms.add(objSms);
+                                break;
+                            } catch (Exception e) {
+
+                            }
+
                         }
+
+
                     }
                     c.moveToNext();
 
