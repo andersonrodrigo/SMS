@@ -12,6 +12,7 @@ public class Sms{
     private String loja;
     private String dataCompra;
     private String valor;
+    private String valorReal;
 
     private String dataInicial;
     private String dataFinal;
@@ -100,5 +101,13 @@ public class Sms{
 
     public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
+    }
+
+    public String getValorReal() {
+        return valorReal;
+    }
+
+    public void setValorReal(String valorReal) {
+        this.valorReal = valorReal;
     }
 }

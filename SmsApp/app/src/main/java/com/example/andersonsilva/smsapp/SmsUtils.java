@@ -55,7 +55,7 @@ public class SmsUtils  {
             }
             objTela.setDataFinal(obj.getDataCompra());
             try {
-                objTela.setValor((Double.parseDouble(obj.getValor().replace(",",".")) + Double.parseDouble(objTela.getValor().replace(",",".")))+"");
+                objTela.setValor((Double.parseDouble(obj.getValorReal().replace(",",".")) + Double.parseDouble(objTela.getValor().replace(",",".")))+"");
             }catch(Exception e){
 
             }
@@ -136,7 +136,7 @@ public class SmsUtils  {
         List<Sms> listaAgrupada = agrupaPorNomeLoja(listaSms);
         double valorTotal = 0;
         for(Sms obj:listaAgrupada){
-            valorTotal = valorTotal + Double.parseDouble(obj.getValor().replace(".","").replace(",","."));
+            valorTotal = valorTotal + Double.parseDouble(obj.getValorReal().replace(".","").replace(",","."));
         }
         return formato2.format(valorTotal);
     }
@@ -189,7 +189,7 @@ public class SmsUtils  {
                     retornoTela.setValor("0");
                 }
                 retornoTela.setDataCompra(sms.getDataCompra());
-                retornoTela.setValor(formato2.format(Double.parseDouble(retornoTela.getValor().replace("R$","").replace(".","").replace(",",".")) + Double.parseDouble(sms.getValor().replace(".","").replace(",","."))));
+                retornoTela.setValor(formato2.format(Double.parseDouble(retornoTela.getValor().replace("R$","").replace(".","").replace(",",".")) + Double.parseDouble(sms.getValorReal().replace(".","").replace(",","."))));
                 }catch(Exception e){
               //  Toast.makeText()
             }
@@ -308,7 +308,7 @@ public class SmsUtils  {
                 for (int i = 0; i < totalSMS; i++) {
                     Sms objSms = new Sms();
                     objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
-                    objSms.setMsg("CAIXA informa: Saque com cartao de debito, 1.000,00, conta 94-8, 11/02/2017 as 14:43, ATM. Duvidas: 3004-1104 / 0800-726-0104");
+
                     if (objSms.getMsg() != null) {
 
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
@@ -316,6 +316,12 @@ public class SmsUtils  {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
                                 objSms.setDataCompra(objSms.getMsg().substring(objSms.getMsg().indexOf("EM ") + 3, objSms.getMsg().indexOf("EM ") + 3 + 16));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("VALOR DE $ ") + 11, objSms.getMsg().indexOf("NO(A)")));
+                                if (objSms.getValor().indexOf(" EM ")>-1){
+                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                }else{
+                                    objSms.setValorReal(objSms.getValor());
+                                }
+
                                 listaSms.add(objSms);
                             } catch (Exception e) {
 
@@ -331,6 +337,11 @@ public class SmsUtils  {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local:") + 6, objSms.getMsg().indexOf(" Consulte ")).trim());
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf("Local:")));
+                                if (objSms.getValor().indexOf(" EM ")>-1){
+                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                }else{
+                                    objSms.setValorReal(objSms.getValor());
+                                }
                                 listaSms.add(objSms);
                             } catch (Exception e) {
 
@@ -341,6 +352,11 @@ public class SmsUtils  {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3 + 17, objSms.getMsg().length()).trim());
                                 objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3, objSms.getMsg().indexOf("em ") + 3 + 17)).replace("as ",""));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" de R$ ") + 7, objSms.getMsg().indexOf("aprovada ")));
+                                if (objSms.getValor().indexOf(" EM ")>-1){
+                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                }else{
+                                    objSms.setValorReal(objSms.getValor());
+                                }
                                 listaSms.add(objSms);
                             } catch (Exception e) {
 
@@ -353,6 +369,11 @@ public class SmsUtils  {
                                 objSms.setLoja("Pagamento Conta Corrente");
                                 objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("corrente ") + 9, objSms.getMsg().indexOf("corrente ") + 9 + 14)));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("R$ ") + 3, objSms.getMsg().indexOf(" em ")));
+                                if (objSms.getValor().indexOf(" EM ")>-1){
+                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                }else{
+                                    objSms.setValorReal(objSms.getValor());
+                                }
                                 listaSms.add(objSms);
 
                             } catch (Exception e) {
@@ -368,6 +389,11 @@ public class SmsUtils  {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local: ") + 7, objSms.getMsg().indexOf("Consulte")).trim());
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf(" Local")));
+                                if (objSms.getValor().indexOf(" EM ")>-1){
+                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                }else{
+                                    objSms.setValorReal(objSms.getValor());
+                                }
                                 listaSms.add(objSms);
                             } catch (Exception e) {
 
@@ -382,6 +408,11 @@ public class SmsUtils  {
                                 objSms.setLoja("Saque com cartao de debito");
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("debito, ") + 8, objSms.getMsg().indexOf(" conta")-1).replace(".",""));
+                                if (objSms.getValor().indexOf(" EM ")>-1){
+                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                }else{
+                                    objSms.setValorReal(objSms.getValor());
+                                }
                                 listaSms.add(objSms);
 
                             } catch (Exception e) {
