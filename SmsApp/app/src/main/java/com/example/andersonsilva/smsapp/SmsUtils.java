@@ -310,7 +310,7 @@ public class SmsUtils  {
                     objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
                     objSms.setMsg("CAIXA informa: Saque com cartao de debito, 1.000,00, conta 94-8, 11/02/2017 as 14:43, ATM. Duvidas: 3004-1104 / 0800-726-0104");
                     if (objSms.getMsg() != null) {
-                        objSms.setMsg("CAIXA informa: Saque com cartao de debito, 1.000,00, conta 94-8, 11/02/2017 as 14:43, ATM. Duvidas: 3004-1104 / 0800-726-0104");
+
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
                             try {
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
@@ -383,7 +383,7 @@ public class SmsUtils  {
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("debito, ") + 8, objSms.getMsg().indexOf(" conta")-1).replace(".",""));
                                 listaSms.add(objSms);
-                                break;
+
                             } catch (Exception e) {
 
                             }
