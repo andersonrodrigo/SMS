@@ -189,6 +189,8 @@ public class SmsUtils  {
                     retornoTela.setValor("0");
                 }
                 retornoTela.setDataCompra(sms.getDataCompra());
+                retornoTela.setBanco(sms.getBanco());
+                retornoTela.setFinalCartao(sms.getFinalCartao());
                 retornoTela.setValor(formato2.format(Double.parseDouble(retornoTela.getValor().replace("R$","").replace(".","").replace(",",".")) + Double.parseDouble(sms.getValorReal().replace(".","").replace(",","."))));
                 }catch(Exception e){
               //  Toast.makeText()
@@ -219,7 +221,8 @@ public class SmsUtils  {
                 }catch (Exception e){
 
                 }
-                if (dataCompra.getMonth() == dataArmazenada.getMonth() && dataCompra.getYear() == dataArmazenada.getYear()){
+                if (dataCompra.getMonth() == dataArmazenada.getMonth() && dataCompra.getYear() == dataArmazenada.getYear()
+                        && smsArmazenado.getFinalCartao().equals(sms.getFinalCartao())){
                     return smsArmazenado;
                 }
             }
@@ -313,6 +316,8 @@ public class SmsUtils  {
 
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
                             try {
+                                objSms.setBanco("BRADESCO");
+                                objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf(" APROVADA NO ")+13,objSms.getMsg().indexOf(" EM ")));
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
                                 objSms.setDataCompra(objSms.getMsg().substring(objSms.getMsg().indexOf("EM ") + 3, objSms.getMsg().indexOf("EM ") + 3 + 16));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("VALOR DE $ ") + 11, objSms.getMsg().indexOf("NO(A)")));
@@ -334,6 +339,8 @@ public class SmsUtils  {
                             Calendar d = Calendar.getInstance();
                             d.setTimeInMillis(Long.valueOf(data));
                             try {
+                                objSms.setBanco("ITAU");
+                                objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf("DEBITO: ")+8,objSms.getMsg().indexOf(" COMPRA")));
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("Local:") + 6, objSms.getMsg().indexOf(" Consulte ")).trim());
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" R$ ") + 4, objSms.getMsg().indexOf("Local:")));
@@ -349,6 +356,8 @@ public class SmsUtils  {
                         }else  if (objSms.getMsg().indexOf("Santander Informa") > -1) {
                             //objSms.setMsg("{BETEL}Santander Informa: Transacao Cartao VISA final 4249 de R$ 5,00 aprovada em 14/12/16 as 21:21 SHOP CONTAGEM");
                             try {
+                                objSms.setBanco("Santander");
+                                objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf("Transacao ")+10,objSms.getMsg().indexOf(" de ")));
                                 objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3 + 17, objSms.getMsg().length()).trim());
                                 objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3, objSms.getMsg().indexOf("em ") + 3 + 17)).replace("as ",""));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf(" de R$ ") + 7, objSms.getMsg().indexOf("aprovada ")));
@@ -366,6 +375,8 @@ public class SmsUtils  {
                          //   objSms.setMsg("Seguranca Santander: Pagamento R$ 1762,53 em conta corrente 07/02/17 10:04");
                             try {
                               //  objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("em ") + 3, objSms.getMsg().length()));
+                                objSms.setBanco("Santander");
+                                objSms.setFinalCartao("Conta corrente");
                                 objSms.setLoja("Pagamento Conta Corrente");
                                 objSms.setDataCompra((objSms.getMsg().substring(objSms.getMsg().indexOf("corrente ") + 9, objSms.getMsg().indexOf("corrente ") + 9 + 14)));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("R$ ") + 3, objSms.getMsg().indexOf(" em ")));
@@ -383,6 +394,8 @@ public class SmsUtils  {
                         } else  if (objSms.getMsg().indexOf("ITAU UNICLASS") > -1) {
                           // objSms.setMsg("ITAU UNICLASS: Cartao final 9976 COMPRA APROVADA 17/02 13:32:22 R$ 39,50 Local: ARTES BAR. Consulte tambem pelo celular www.itau.com.br.");
                             try {
+                                objSms.setBanco("ITAU");
+                                objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf("UNICLASS: ")+10,objSms.getMsg().indexOf(" COMPRA")));
                                 String data = c.getString(c.getColumnIndexOrThrow("date"));
                                 Calendar d = Calendar.getInstance();
                                 d.setTimeInMillis(Long.valueOf(data));
@@ -405,6 +418,8 @@ public class SmsUtils  {
                                 String data = c.getString(c.getColumnIndexOrThrow("date"));
                                 Calendar d = Calendar.getInstance();
                                 d.setTimeInMillis(Long.valueOf(data));
+                                objSms.setBanco("CAIXA");
+                                objSms.setFinalCartao("Conta corrente");
                                 objSms.setLoja("Saque com cartao de debito");
                                 objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
                                 objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("debito, ") + 8, objSms.getMsg().indexOf(" conta")-1).replace(".",""));

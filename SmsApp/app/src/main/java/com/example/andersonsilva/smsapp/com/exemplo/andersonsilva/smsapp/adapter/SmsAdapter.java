@@ -94,7 +94,7 @@ public class SmsAdapter  extends ArrayAdapter<Sms> implements View.OnClickListen
             result.startAnimation(animation);
             lastPosition = position;
 
-            viewHolder.txtLoja.setText(dataModel.getLoja());
+            viewHolder.txtLoja.setText(dataModel.getBanco()+" - "+ dataModel.getFinalCartao());
             viewHolder.txtDataCompra.setText(dataModel.getDataCompra());
             viewHolder.txtValor.setText(dataModel.getValor());
             //viewHolder.info.setOnClickListener(this);

@@ -13,6 +13,8 @@ public class Sms{
     private String dataCompra;
     private String valor;
     private String valorReal;
+    private String finalCartao;
+    private String banco;
 
     private String dataInicial;
     private String dataFinal;
@@ -109,5 +111,21 @@ public class Sms{
 
     public void setValorReal(String valorReal) {
         this.valorReal = valorReal;
+    }
+
+    public String getFinalCartao() {
+        return finalCartao;
+    }
+
+    public void setFinalCartao(String finalCartao) {
+        this.finalCartao = finalCartao;
+    }
+
+    public String getBanco() {
+        return banco;
+    }
+
+    public void setBanco(String banco) {
+        this.banco = banco;
     }
 }

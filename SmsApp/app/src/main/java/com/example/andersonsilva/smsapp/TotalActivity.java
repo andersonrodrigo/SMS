@@ -1,7 +1,9 @@
 package com.example.andersonsilva.smsapp;
 
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -49,8 +51,18 @@ public class TotalActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Sms dataModel= listaSms.get(position);
                 Sms dataModel= listaSms.get(position);
-                Snackbar.make(view, dataModel.getMsg(), Snackbar.LENGTH_LONG)
-                        .setAction("Mensagem completa", null).show();
+             /*   Snackbar.make(view, dataModel.getMsg(), Snackbar.LENGTH_LONG)
+                        .setAction("Mensagem completa", null).show();*/
+                AlertDialog alertDialog = new AlertDialog.Builder(TotalActivity.this).create();
+                alertDialog.setTitle("Mensagem Completa");
+                alertDialog.setMessage(dataModel.getMsg());
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
             }
         });
     }

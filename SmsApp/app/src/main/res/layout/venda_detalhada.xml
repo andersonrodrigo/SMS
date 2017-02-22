@@ -5,12 +5,30 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-
     <TextView
-       android:id="@+id/tituloLoja"
+        android:id="@+id/tituloBanco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="25dp"
+        android:text="Bradesco"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/dadosCartao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tituloBanco"
+        android:layout_marginLeft="42dp"
+        android:text="Cartao final 9980"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tituloLoja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dadosCartao"
+        android:layout_marginRight="25dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Loja da Compra:"
         android:textColor="@android:color/black" />
 
@@ -19,7 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tituloLoja"
-        android:layout_marginRight="5dp"
+       android:layout_marginTop="-14dp"
+         android:layout_below="@+id/tituloLoja"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Lojas do Ands"
         android:textColor="@android:color/black" />
 
@@ -27,48 +47,45 @@
         android:id="@+id/tituloDataCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Data da Compra:"
         android:layout_below="@+id/loja"
-        android:layout_marginRight="22dp"
-        android:layout_marginTop="25dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/black" />
 
+
+
+        android:textColor="@android:color/black" />
     <TextView
         android:id="@+id/dataCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tituloDataCompra"
         android:layout_toRightOf="@+id/tituloDataCompra"
         android:text="15/11/2016 18:24"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginTop="-14dp"
+        android:layout_marginLeft="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
-
     <TextView
         android:id="@+id/tituloValorCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dataCompra"
         android:layout_marginRight="22dp"
-        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Valor da Compra:"
         android:textColor="@android:color/black" />
-
-
 
     <TextView
         android:id="@+id/valor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tituloValorCompra"
         android:layout_toRightOf="@+id/tituloValorCompra"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginLeft="-5dp"
+        android:layout_marginTop="-14dp"
         android:text="R$:110,00"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
