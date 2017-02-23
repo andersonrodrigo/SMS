@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'ChaveComprasRegistradasSMS'
+            keyPassword 'ChaveComprasRegistradasSMSPassword'
+            storeFile file('C:/Users/anderson.silva/Documents/GitHub/SMS/SmsApp/keyComprasRegistradas.jks')
+            storePassword 'ChaveComprasRegistradasSMSPassword'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
-
     defaultConfig {
         applicationId "com.example.andersonsilva.smsapp"
         minSdkVersion 9
@@ -15,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
