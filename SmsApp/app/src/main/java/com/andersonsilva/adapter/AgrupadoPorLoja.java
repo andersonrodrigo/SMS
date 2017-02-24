@@ -1,7 +1,6 @@
-package com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter;
+package com.andersonsilva.adapter;
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +9,22 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.andersonsilva.smsapp.R;
-import com.example.andersonsilva.smsapp.entity.Sms;
+import com.andersonsilva.R;
+import com.andersonsilva.entity.Sms;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by anderson.silva on 14/02/2017.
  */
-public class SmsAdapter  extends ArrayAdapter<Sms> implements View.OnClickListener{
+public class AgrupadoPorLoja extends ArrayAdapter<Sms> implements View.OnClickListener{
 
         private ArrayList<Sms> dataSet;
         Context mContext;
+    static NumberFormat formato2 = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
-    
 
     // View lookup cache
         private static class ViewHolder {
@@ -41,8 +41,8 @@ public class SmsAdapter  extends ArrayAdapter<Sms> implements View.OnClickListen
      * @param context
 
      */
-        public SmsAdapter(ArrayList<Sms> data, Context context) {
-            super(context, R.layout.item_sms, data);
+        public AgrupadoPorLoja(ArrayList<Sms> data, Context context) {
+            super(context, R.layout.agrupado_loja, data);
             this.dataSet = data;
             this.mContext=context;
 
@@ -79,7 +79,7 @@ public class SmsAdapter  extends ArrayAdapter<Sms> implements View.OnClickListen
 
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.item_sms, parent, false);
+                convertView = inflater.inflate(R.layout.agrupado_loja, parent, false);
                 viewHolder.txtDataCompra = (TextView) convertView.findViewById(R.id.dataCompra);
                 viewHolder.txtValor = (TextView) convertView.findViewById(R.id.valor);
                 viewHolder.txtLoja = (TextView) convertView.findViewById(R.id.loja);
@@ -94,9 +94,9 @@ public class SmsAdapter  extends ArrayAdapter<Sms> implements View.OnClickListen
             result.startAnimation(animation);
             lastPosition = position;
 
-            viewHolder.txtLoja.setText(dataModel.getBanco()+" - "+ dataModel.getFinalCartao());
+            viewHolder.txtLoja.setText(dataModel.getLoja());
             viewHolder.txtDataCompra.setText(dataModel.getDataCompra());
-            viewHolder.txtValor.setText(dataModel.getValor());
+            viewHolder.txtValor.setText(formato2.format(Double.valueOf(dataModel.getValor())));
             //viewHolder.info.setOnClickListener(this);
            // viewHolder.info.setTag(position);
             // Return the completed view to render on screen

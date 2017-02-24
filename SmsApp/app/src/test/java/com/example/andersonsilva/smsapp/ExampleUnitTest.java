@@ -1,4 +1,4 @@
-package com.example.andersonsilva.smsapp;
+package com.andersonsilva;
 
 import org.junit.Test;
 

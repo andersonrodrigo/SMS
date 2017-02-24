@@ -1,4 +1,4 @@
-package com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter;
+package com.andersonsilva.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.andersonsilva.smsapp.R;
-import com.example.andersonsilva.smsapp.entity.Sms;
+import com.andersonsilva.R;
+import com.andersonsilva.entity.Sms;
 
 import java.util.ArrayList;
 

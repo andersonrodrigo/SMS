@@ -1,4 +1,4 @@
-package com.example.andersonsilva.smsapp.entity;
+package com.andersonsilva.entity;
 
 public class Sms{
     private String _id;

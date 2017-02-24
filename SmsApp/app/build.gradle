@@ -12,7 +12,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
-        applicationId "com.example.andersonsilva.smsapp"
+        applicationId "com.andersonsilva"
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1

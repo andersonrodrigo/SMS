@@ -1,4 +1,4 @@
-package com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter;
+package com.andersonsilva.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,20 +9,20 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.andersonsilva.smsapp.R;
-import com.example.andersonsilva.smsapp.entity.Sms;
+import com.andersonsilva.R;
+import com.andersonsilva.entity.Sms;
 
 import java.util.ArrayList;
 
 /**
  * Created by anderson.silva on 14/02/2017.
  */
-public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickListener{
+public class SmsAdapter  extends ArrayAdapter<Sms> implements View.OnClickListener{
 
         private ArrayList<Sms> dataSet;
         Context mContext;
 
-
+    
 
     // View lookup cache
         private static class ViewHolder {
@@ -39,8 +39,8 @@ public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickLis
      * @param context
 
      */
-        public VendaDetalhada(ArrayList<Sms> data, Context context) {
-            super(context, R.layout.venda_detalhada, data);
+        public SmsAdapter(ArrayList<Sms> data, Context context) {
+            super(context, R.layout.item_sms, data);
             this.dataSet = data;
             this.mContext=context;
 
@@ -77,7 +77,7 @@ public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickLis
 
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.venda_detalhada, parent, false);
+                convertView = inflater.inflate(R.layout.item_sms, parent, false);
                 viewHolder.txtDataCompra = (TextView) convertView.findViewById(R.id.dataCompra);
                 viewHolder.txtValor = (TextView) convertView.findViewById(R.id.valor);
                 viewHolder.txtLoja = (TextView) convertView.findViewById(R.id.loja);
@@ -92,7 +92,7 @@ public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickLis
             result.startAnimation(animation);
             lastPosition = position;
 
-            viewHolder.txtLoja.setText(dataModel.getLoja());
+            viewHolder.txtLoja.setText(dataModel.getBanco()+" - "+ dataModel.getFinalCartao());
             viewHolder.txtDataCompra.setText(dataModel.getDataCompra());
             viewHolder.txtValor.setText(dataModel.getValor());
             //viewHolder.info.setOnClickListener(this);

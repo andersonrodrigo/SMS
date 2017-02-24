@@ -1,7 +1,6 @@
-package com.example.andersonsilva.smsapp;
+package com.andersonsilva;
 
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.AgrupadoPorLoja;
-import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.SmsAdapter;
-import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.TodasVendaDetalhadas;
-import com.example.andersonsilva.smsapp.com.exemplo.andersonsilva.smsapp.adapter.VendaDetalhada;
-import com.example.andersonsilva.smsapp.entity.Sms;
+import com.andersonsilva.R;
+import com.andersonsilva.adapter.TodasVendaDetalhadas;
+import com.andersonsilva.entity.Sms;
 
 import java.util.ArrayList;
 

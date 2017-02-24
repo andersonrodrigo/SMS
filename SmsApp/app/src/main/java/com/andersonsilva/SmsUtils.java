@@ -1,17 +1,10 @@
-package com.example.andersonsilva.smsapp;
+package com.andersonsilva;
 
-import android.app.LoaderManager;
 import android.content.ContentResolver;
-import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.widget.Toast;
 
-import com.example.andersonsilva.smsapp.entity.Sms;
+import com.andersonsilva.entity.Sms;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;

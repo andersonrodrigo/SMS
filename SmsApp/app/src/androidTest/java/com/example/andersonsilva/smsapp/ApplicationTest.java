@@ -1,4 +1,4 @@
-package com.example.andersonsilva.smsapp;
+package com.andersonsilva;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
