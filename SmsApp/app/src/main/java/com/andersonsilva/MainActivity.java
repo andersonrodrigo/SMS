@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -175,8 +176,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        // Locate MenuItem with ShareActionProvider
+
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -208,10 +212,21 @@ public class MainActivity extends AppCompatActivity
        } else if (id == R.id.todasDetalhadasPorData) {
             Intent i = new Intent(getApplicationContext(), VendasGeraisActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
-
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.andersonsilva");
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            startActivity(sharingIntent);
+        }else if(id == R.id.graficos){
+            Intent i = new Intent(getApplicationContext(), GraficosActivity.class);
+            startActivity(i);
+        }else if(id== R.id.nav_help){
+            Intent i = new Intent(getApplicationContext(), HelpActivity.class);
+            startActivity(i);
+        }else if (id == R.id.nav_sobre){
+            Intent i = new Intent(getApplicationContext(), SobreActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
