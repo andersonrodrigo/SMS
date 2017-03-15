@@ -304,7 +304,7 @@ public class SmsUtils  {
                 for (int i = 0; i < totalSMS; i++) {
                     Sms objSms = new Sms();
                     objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
-
+//objSms.setMsg("BB: compra RS  50,00 ANTON0O FAIANO SOUSA cartao final 2546 em 04/03/17.");
                     if (objSms.getMsg() != null) {
 
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
@@ -426,11 +426,34 @@ public class SmsUtils  {
                             } catch (Exception e) {
 
                             }
+//BB: Compra SELVA GASTRONOM. Cartao final 2546. RS 97,71. 05/03. 00:41. Responda BL2546 se quiser bloquear cartao Lim disp RS 1.769
+                        }else  if (objSms.getMsg().indexOf("BB: Compra ") > -1) {
+                            try {
+                                //objSms.setMsg("BB: Compra SELVA GASTRONOM. Cartao final 2546. RS 97,71. 05/03. 00:41. Responda BL2546 se quiser bloquear cartao Lim disp RS 1.769");
+                                //  BB: compra RS  50,00 ANTON0O FAIANO SOUSA cartao final 2546 em 04/03/17.
 
+                                String data = c.getString(c.getColumnIndexOrThrow("date"));
+                                Calendar d = Calendar.getInstance();
+                                d.setTimeInMillis(Long.valueOf(data));
+                                objSms.setBanco("Banco Brasil");
+                                objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf("Cartao final ") + 13, objSms.getMsg().indexOf(". RS")));
+                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("BB: Compra ") + 11, objSms.getMsg().indexOf("Cartao final")));
+                                objSms.setDataCompra(new SimpleDateFormat("dd/MM/yyyy hh:mm").format(d.getTime()));
+                                String msgCorte = objSms.getMsg().substring(objSms.getMsg().indexOf(" RS ") + 4, objSms.getMsg().length());
+                                objSms.setValor(msgCorte.substring(0, msgCorte.indexOf(". ")).replace(".", ""));
+                                if (objSms.getValor().indexOf(" EM ") > -1) {
+                                    objSms.setValorReal(objSms.getValor().substring(0, objSms.getValor().indexOf(" EM ")));
+                                } else {
+                                    objSms.setValorReal(objSms.getValor());
+                                }
+                                listaSms.add(objSms);
+
+                            } catch (Exception e) {
+
+                            }
                         }
 
-
-                    }
+                        }
                     c.moveToNext();
 
                 }
