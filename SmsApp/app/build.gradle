@@ -5,18 +5,18 @@ android {
         config {
             keyAlias 'ChaveComprasRegistradasSMS'
             keyPassword 'ChaveComprasRegistradasSMSPassword'
-            storeFile file('C:/Users/anderson.silva/Documents/GitHub/SMS/SmsApp/keyComprasRegistradas.jks')
+            storeFile file('../keyComprasRegistradas.jks')
             storePassword 'ChaveComprasRegistradasSMSPassword'
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.andersonsilva"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.3"
+        versionCode 4
+        versionName "1.4"
     }
     buildTypes {
         release {

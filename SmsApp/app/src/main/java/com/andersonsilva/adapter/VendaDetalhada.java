@@ -29,6 +29,7 @@ public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickLis
             TextView txtDataCompra;
             TextView txtLoja;
             TextView txtValor;
+            TextView txtDadosCartao;
 
         }
 
@@ -81,6 +82,7 @@ public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickLis
                 viewHolder.txtDataCompra = (TextView) convertView.findViewById(R.id.dataCompra);
                 viewHolder.txtValor = (TextView) convertView.findViewById(R.id.valor);
                 viewHolder.txtLoja = (TextView) convertView.findViewById(R.id.loja);
+                viewHolder.txtDadosCartao =  (TextView) convertView.findViewById(R.id.dadosCartao);
                 result=convertView;
                 convertView.setTag(viewHolder);
             } else {
@@ -95,6 +97,7 @@ public class VendaDetalhada extends ArrayAdapter<Sms> implements View.OnClickLis
             viewHolder.txtLoja.setText(dataModel.getLoja());
             viewHolder.txtDataCompra.setText(dataModel.getDataCompra());
             viewHolder.txtValor.setText(dataModel.getValor());
+            viewHolder.txtDadosCartao.setText(dataModel.getFinalCartao());
             //viewHolder.info.setOnClickListener(this);
            // viewHolder.info.setTag(position);
             // Return the completed view to render on screen

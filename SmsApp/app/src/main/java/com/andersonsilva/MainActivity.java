@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(getApplicationContext(), ActivityMensal.class);
                 Bundle params = new Bundle();
                 params.putString("mesReferencia", dataModel.getDataCompra());
+                params.putString("finalCartao", dataModel.getFinalCartao());
                 intent.putExtras(params);
                 startActivity(intent);
             }

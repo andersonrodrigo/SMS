@@ -247,7 +247,7 @@ public class SmsUtils  {
      * @param dataReferencia
      * @return
      */
-    public static ArrayList<Sms> getVendasAcumuladasMes(ContentResolver cr,String dataReferencia){
+    public static ArrayList<Sms> getVendasAcumuladasMes(ContentResolver cr,String dataReferencia, String finalCartao){
         ArrayList<Sms> msgs = getAllSms(cr);
         Date objDataReferencia = null;
         try{
@@ -255,7 +255,7 @@ public class SmsUtils  {
                 dataReferencia = "01/"+dataReferencia;
             }
             objDataReferencia = new SimpleDateFormat("dd/MM/yyyy").parse(dataReferencia);
-            return filtraMsgPorMes(msgs,objDataReferencia);
+            return filtraMsgPorMes(msgs,objDataReferencia,finalCartao);
         }catch (Exception e){
             return null;
         }
@@ -268,7 +268,7 @@ public class SmsUtils  {
      * @param objDataReferencia
      * @return
      */
-    private static ArrayList<Sms> filtraMsgPorMes(ArrayList<Sms> msgs, Date objDataReferencia) {
+    private static ArrayList<Sms> filtraMsgPorMes(ArrayList<Sms> msgs, Date objDataReferencia, String finalCartao) {
         ArrayList<Sms> listaRetorno = new  ArrayList<Sms>();
         for(Sms sms:msgs){
             if (sms.getDataCompra()!=null){
@@ -276,7 +276,8 @@ public class SmsUtils  {
                 try {
                     dataReferencia = new SimpleDateFormat("dd/MM/yyyy").parse(sms.getDataCompra());
                     if (dataReferencia.getMonth()==objDataReferencia.getMonth() && dataReferencia.getYear() == objDataReferencia.getYear()){
-                        listaRetorno.add(sms);
+                        if (finalCartao.equals(sms.getFinalCartao()))
+                            listaRetorno.add(sms);
                     }
                 }catch(Exception e){
 
@@ -289,7 +290,7 @@ public class SmsUtils  {
 
 
     /**
-     *
+     *BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 9900 EM 30/06/2018 22:52. VALOR DE R$ 32,80 PIZZA SCUOLA             BELO HORIZON.
      * @return
      */
     public static ArrayList<Sms> getAllSms(ContentResolver cr ) {
@@ -305,20 +306,53 @@ public class SmsUtils  {
                     Sms objSms = new Sms();
                     objSms.setMsg(c.getString(c.getColumnIndexOrThrow("body")));
 //objSms.setMsg("BB: compra RS  50,00 ANTON0O FAIANO SOUSA cartao final 2546 em 04/03/17.");
+                   // objSms.setMsg("BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 9900 EM 30/06/2018 22:52. VALOR DE R$ 32,80 PIZZA SCUOLA             BELO HORIZON.");
                     if (objSms.getMsg() != null) {
 
                         if (objSms.getMsg().indexOf("BRADESCO CARTOES") > -1) {
                             try {
-                                objSms.setBanco("BRADESCO");
-                                objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf(" APROVADA NO ")+13,objSms.getMsg().indexOf(" EM ")));
-                                objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
-                                objSms.setDataCompra(objSms.getMsg().substring(objSms.getMsg().indexOf("EM ") + 3, objSms.getMsg().indexOf("EM ") + 3 + 16));
-                                objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("VALOR DE $ ") + 11, objSms.getMsg().indexOf("NO(A)")));
-                                if (objSms.getValor().indexOf(" EM ")>-1){
-                                    objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
-                                }else{
-                                    objSms.setValorReal(objSms.getValor());
+                                if (objSms.getMsg().indexOf("PARIS")>-1){
+                                    objSms.setBanco("BRADESCO");
                                 }
+                                if (objSms.getMsg().indexOf("R$") > -1) {
+                                    objSms.setBanco("BRADESCO");
+                                    String[] mensagem = objSms.getMsg().split("BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL");
+                                    String[] subMensagem = mensagem[1].split(" ");
+                                    objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf(" APROVADA NO ")+13,objSms.getMsg().indexOf(" EM ")));
+                                    String[] mensagemLoja = mensagem[1].split("VALOR DE");
+                                    objSms.setLoja(mensagemLoja[1].substring(mensagemLoja[1].indexOf(",")+ 3 , mensagemLoja[1].length()));
+                                    objSms.setDataCompra(objSms.getMsg().substring(objSms.getMsg().indexOf("EM ") + 3, objSms.getMsg().indexOf("EM ") + 3 + 16));
+                                    if (mensagemLoja[1].indexOf("EM")>-1){
+                                        objSms.setValor(mensagemLoja[1].substring(3,mensagemLoja[1].indexOf("EM")-1));
+                                        objSms.setValorReal(objSms.getValor());
+                                    }else{
+                                        objSms.setValor(subMensagem[8]);
+                                        objSms.setValorReal(objSms.getValor());
+                                    }
+                                    if (objSms.getValor().indexOf("VALOR DE")>-1){
+                                        objSms.setValor(objSms.getValor().substring(objSms.getValor().indexOf("VALOR DE"),objSms.getValor().length()));
+                                        objSms.setValorReal(objSms.getValor());
+                                    }
+
+                                }else{
+                                    objSms.setBanco("BRADESCO");
+                                    objSms.setFinalCartao(objSms.getMsg().substring(objSms.getMsg().indexOf(" APROVADA NO ")+13,objSms.getMsg().indexOf(" EM ")));
+                                    objSms.setLoja(objSms.getMsg().substring(objSms.getMsg().indexOf("NO(A)") + 5, objSms.getMsg().length()).trim());
+                                    objSms.setDataCompra(objSms.getMsg().substring(objSms.getMsg().indexOf("EM ") + 3, objSms.getMsg().indexOf("EM ") + 3 + 16));
+                                    objSms.setValor(objSms.getMsg().substring(objSms.getMsg().indexOf("VALOR DE $ ") + 11, objSms.getMsg().indexOf("NO(A)")));
+                                    if (objSms.getValor().indexOf(" EM ")>-1){
+                                        objSms.setValorReal(objSms.getValor().substring(0,objSms.getValor().indexOf(" EM ")));
+                                    }else{
+                                        objSms.setValorReal(objSms.getValor());
+                                    }
+                                    if (objSms.getValor().indexOf("VALOR DE")>-1){
+                                        objSms.setValor(objSms.getValor().substring(objSms.getValor().indexOf("VALOR DE")+8,objSms.getValor().length()));
+                                        objSms.setValorReal(objSms.getValor());
+                                    }
+
+                                }
+
+
 
                                 listaSms.add(objSms);
                             } catch (Exception e) {

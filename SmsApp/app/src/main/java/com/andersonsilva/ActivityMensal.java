@@ -34,8 +34,9 @@ public class ActivityMensal extends AppCompatActivity {
 
         if(params!=null) {
             String dataReferencia = params.getString("mesReferencia");
+            String finalCartao = params.getString("finalCartao");
             listView = (ListView) findViewById(R.id.listMensalAgrupado);
-            listaSms = SmsUtils.getVendasAcumuladasMes(getContentResolver(),dataReferencia);
+            listaSms = SmsUtils.getVendasAcumuladasMes(getContentResolver(),dataReferencia,finalCartao);
             adapter= new VendaDetalhada(listaSms,getApplicationContext());
             SmsUtils.ordenaListaValorData(listaSms,1);
             listView.setAdapter(adapter);
